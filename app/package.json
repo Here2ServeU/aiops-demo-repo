@@ -1,13 +1,11 @@
 {
-  "name": "aiops-demo-express-app",
+  "name": "express-app",
   "version": "1.0.0",
-  "description": "Express app for AIOps demo with Prometheus metrics",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "prom-client": "^15.1.3"
+    "express": "^4.18.2"
   }
 }

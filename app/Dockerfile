@@ -1,7 +1,8 @@
-FROM node:20-alpine
-WORKDIR /usr/src/app
-COPY package.json package-lock.json* ./
-RUN npm install --omit=dev
-COPY . .
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+# This line is critical to copy the 'public' folder
+COPY . . 
 EXPOSE 3000
-CMD ["npm","start"]
+CMD ["node", "index.js"]
