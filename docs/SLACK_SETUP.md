@@ -1,11 +1,12 @@
 # Slack Setup (Incoming Webhook)
 
-1. In Slack, go to:
+### In Slack, go to:
+   - https://api.slack.com/apps
+   - Create New App -> App Name -> Pick a workspace to develop your app in -> Create App
+   - Go to Incoming Webhook (under Features) -> Turn 'On' Activate Incoming Webhooks -> Add New Webhook -> Select Channel for webhook -> Allow
+   - Under Webhook URL -> Copy
    - Workspace Settings → Apps → (or browse Slack App Directory)
-2. Search: **Incoming Webhooks**
-3. Add to Slack → Choose a channel (example: #aiops-demo)
-4. Copy the generated Webhook URL
-5. Put it into `.env`:
+### Put it into `.env`:
 
 ```bash
 cp .env.example .env
