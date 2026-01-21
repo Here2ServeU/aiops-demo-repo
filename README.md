@@ -55,6 +55,34 @@ To get the most out of this platform, explore these detailed guides:
 * **[Troubleshooting Guide](https://github.com/Here2ServeU/aiops-demo-t2s/blob/main/docs/TROUBLESHOOTING.md)** – Quick fixes for common Docker and connection errors.
 
 
+---
+
+### **Cleanup & Resource Management**
+
+To stop the demonstration and free up system resources, use the following commands:
+
+* **Stop and Remove Containers:**
+```bash
+docker compose down
+
+```
+
+
+* **Complete Reset (Deletes Volumes & Data):**
+If you want to start from scratch and clear all stored metrics and logs, run:
+```bash
+docker compose down -v
+
+```
+
+
+* **Prune Unused Images:**
+To reclaim disk space by removing images no longer in use:
+```bash
+docker image prune -f
+
+```
+
 
 ---
 
