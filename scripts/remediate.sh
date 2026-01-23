@@ -1,16 +1,34 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "[Remediation] Restarting Express app container..."
-docker compose restart app
+# --- CONFIGURATION ---
+CONTAINER_NAME="aiops-demo-app" 
 
-echo "[Remediation] Scaling up app to 2 replicas for 2 minutes (demo)..."
-docker compose up -d --scale app=2
+# 1. Check if Docker is running
+if ! docker info >/dev/null 2>&1; then
+    echo "[ERROR] Docker daemon is not running. Attempting to start..."
+    open /Applications/Docker.app
+    
+    COUNTER=0
+    while ! docker info >/dev/null 2>&1; do
+        if [ $COUNTER -gt 30 ]; then
+            echo "[FATAL] Docker failed to start in time. Aborting."
+            exit 1
+        fi
+        sleep 2
+        ((COUNTER+=2))
+        echo "Waiting for Docker... ($COUNTER/30s)"
+    done
+fi
 
-echo "[Remediation] Waiting 120 seconds..."
-sleep 120
+# 2. Proceed with Restart
+echo "[Remediation] Restarting $CONTAINER_NAME container..."
 
-echo "[Remediation] Scaling back to 1 replica..."
-docker compose up -d --scale app=1
-
-echo "[Remediation] Done."
+# Check if the container exists
+if docker ps -a --format '{{.Names}}' | grep -Eq "^${CONTAINER_NAME}$"; then
+    docker restart "$CONTAINER_NAME"
+    echo "[OK] Container $CONTAINER_NAME restarted successfully."
+else
+    echo "[ERROR] Container '$CONTAINER_NAME' not found."
+    exit 1
+fi
